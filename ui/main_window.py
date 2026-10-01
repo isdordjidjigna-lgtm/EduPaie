@@ -25,29 +25,8 @@ class MainWindow(QMainWindow):
         # SIDEBAR
         # ============================
         self.sidebar = QFrame()
+        self.sidebar.setObjectName("sidebar")
         self.sidebar.setFixedWidth(220)
-        self.sidebar.setStyleSheet("""
-            QFrame {
-                background-color: #263238;
-            }
-            QPushButton#sidebarBtn {
-                background-color: #263238;
-                color: white;
-                text-align: left;
-                padding: 15px 20px;
-                border: none;
-                font-size: 12pt;
-                border-bottom: 1px solid #37474F;
-            }
-            QPushButton#sidebarBtn:hover {
-                background-color: #37474F;
-            }
-            QPushButton#sidebarBtn:checked {
-                background-color: #1976D2;
-                border-left: 4px solid #0D47A1;
-                font-weight: bold;
-            }
-        """)
 
         # Logo / titre sidebar
         self.logo = QLabel("EduPaie")

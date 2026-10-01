@@ -30,7 +30,9 @@ class ElevesView(QWidget):
         self.classe_combo.addItem("Toutes les classes", userData=None)
 
         self.btn_reset = QPushButton("Réinitialiser")
-        self.btn_ajouter = QPushButton("Ajouter un élève")
+        self.btn_reset.setProperty("class", "secondaryBtn")
+        self.btn_ajouter = QPushButton("➕ Ajouter un élève")
+        self.btn_ajouter.setProperty("class", "actionBtn")
         self.btn_ajouter.clicked.connect(self._on_ajouter)
 
         bar = QHBoxLayout()
@@ -57,9 +59,12 @@ class ElevesView(QWidget):
         self.table.doubleClicked.connect(self._on_voir_fiche)
 
         # --- Boutons bas ---
-        self.btn_modifier = QPushButton("Modifier")
-        self.btn_supprimer = QPushButton("Supprimer")
-        self.btn_fiche = QPushButton("Voir la fiche")
+        self.btn_modifier = QPushButton("✏️ Modifier")
+        self.btn_modifier.setProperty("class", "actionBtn")
+        self.btn_supprimer = QPushButton("🗑️ Supprimer")
+        self.btn_supprimer.setProperty("class", "dangerBtn")
+        self.btn_fiche = QPushButton("📄 Voir la fiche")
+        self.btn_fiche.setProperty("class", "actionBtn")
 
         self.btn_modifier.clicked.connect(self._on_modifier)
         self.btn_supprimer.clicked.connect(self._on_supprimer)

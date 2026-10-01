@@ -38,6 +38,75 @@ def main():
 
     app = QApplication(sys.argv)
     app.setApplicationName("EduPaie")
+    app.setStyleSheet("""
+        /* ============================================
+           SIDEBAR
+           ============================================ */
+        QFrame#sidebar {
+            background-color: #263238;
+        }
+        QPushButton#sidebarBtn {
+            background-color: #263238;
+            color: white;
+            text-align: left;
+            padding: 15px 20px;
+            border: none;
+            border-bottom: 1px solid #37474F;
+            font-size: 12pt;
+        }
+        QPushButton#sidebarBtn:hover {
+            background-color: #37474F;
+        }
+        QPushButton#sidebarBtn:checked {
+            background-color: #1976D2;
+            border-left: 4px solid #0D47A1;
+            font-weight: bold;
+        }
+
+        /* ============================================
+           BOUTONS D'ACTION
+           ============================================ */
+        QPushButton.actionBtn {
+            background-color: #1976D2;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        QPushButton.actionBtn:hover {
+            background-color: #2196F3;
+        }
+        QPushButton.actionBtn:pressed {
+            background-color: #0D47A1;
+        }
+
+        QPushButton.dangerBtn {
+            background-color: #D32F2F;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        QPushButton.dangerBtn:hover {
+            background-color: #E53935;
+        }
+        QPushButton.dangerBtn:pressed {
+            background-color: #B71C1C;
+        }
+
+        QPushButton.secondaryBtn {
+            background-color: #607D8B;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+        }
+        QPushButton.secondaryBtn:hover {
+            background-color: #78909C;
+        }
+    """)
 
     # 1. Base de données
     db = Database("edupaie.db")
