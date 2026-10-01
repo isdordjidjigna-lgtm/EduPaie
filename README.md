@@ -2,9 +2,9 @@
 
 Application desktop de gestion des paiements pour les établissements scolaires.
 
-**Auteur :** Isdor Djidjigna
+**Auteur :** Isidore Komlan Djidjignan
 **Dépôt :** https://github.com/isdordjidjigna-lgtm/EduPaie
-**Année :** 2025-2026
+**Année :** 2026
 
 ---
 
@@ -231,7 +231,7 @@ Voir : `git log --oneline --graph --all`
 **Isidore Komlan Djidjignan**
 Étudiant en Développement Web et Web Mobile
 Projet réalisé dans le cadre du brief pédagogique
-Année 2025-2026
+Année 2026
 
 ## formateur
-**ing GBADAMASSI Abdou-Akim **.
+**ing. GBADAMASSI Abdou-Akim **.
