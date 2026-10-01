@@ -5,17 +5,22 @@ __pycache__/
 .venv/
 venv/
 
-# Base de données
-edupaie.db
+# Base de données (journal seulement, PAS la base)
 edupaie.db-journal
+edupaie.db-wal
+edupaie.db-shm
 
 # Logs
 edupaie_errors.log
 
-# PyInstaller
+# PyInstaller (build artifacts, PAS le .spec)
 build/
 dist/
-*.spec
+*.spec.bak
+
+# Inno Setup
+installer_output/
+*.exe
 
 # PDF générés
 recus/
