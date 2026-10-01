@@ -14,8 +14,9 @@ class KPICard(QFrame):
     def __init__(self, titre, valeur, couleur="#1976D2"):
         super().__init__()
         self.setFrameShape(QFrame.StyledPanel)
+        self.setObjectName("kpiCard")
         self.setStyleSheet(
-            f"QFrame {{ border-left: 5px solid {couleur}; "
+            f"QFrame#kpiCard {{ border-left: 5px solid {couleur}; "
             f"background-color: #f5f5f5; border-radius: 4px; }}"
         )
 

@@ -1,7 +1,7 @@
 """Fenêtre principale : sidebar + navigation + titre de page."""
 from PySide6.QtWidgets import (
     QMainWindow, QWidget, QHBoxLayout, QVBoxLayout,
-    QLabel, QStackedWidget, QListWidget, QListWidgetItem
+    QLabel, QStackedWidget, QPushButton, QButtonGroup, QFrame
 )
 from PySide6.QtCore import Qt
 
@@ -24,53 +24,57 @@ class MainWindow(QMainWindow):
         # ============================
         # SIDEBAR
         # ============================
-        self.sidebar = QListWidget()
+        self.sidebar = QFrame()
         self.sidebar.setFixedWidth(220)
         self.sidebar.setStyleSheet("""
-            QListWidget {
+            QFrame {
+                background-color: #263238;
+            }
+            QPushButton#sidebarBtn {
                 background-color: #263238;
                 color: white;
+                text-align: left;
+                padding: 15px 20px;
                 border: none;
                 font-size: 12pt;
-                padding-top: 0px;
-            }
-            QListWidget::item {
-                padding: 15px 20px;
                 border-bottom: 1px solid #37474F;
             }
-            QListWidget::item:selected {
-                background-color: #1976D2;
-                color: white;
-            }
-            QListWidget::item:hover {
+            QPushButton#sidebarBtn:hover {
                 background-color: #37474F;
+            }
+            QPushButton#sidebarBtn:checked {
+                background-color: #1976D2;
+                border-left: 4px solid #0D47A1;
+                font-weight: bold;
             }
         """)
 
-        item_dashboard = QListWidgetItem("📊  Tableau de bord")
-        item_eleves = QListWidgetItem("👥  Élèves")
-        self.sidebar.addItem(item_dashboard)
-        self.sidebar.addItem(item_eleves)
-
-        # Titre de la sidebar
-        titre_sidebar = QLabel("EduPaie")
-        titre_sidebar.setAlignment(Qt.AlignCenter)
-        titre_sidebar.setFixedHeight(80)
-        titre_sidebar.setStyleSheet(
-            "color: white; font-size: 22pt; font-weight: bold; "
-            "background-color: #1A2327; padding: 20px;"
+        # Logo / titre sidebar
+        self.logo = QLabel("EduPaie")
+        self.logo.setAlignment(Qt.AlignCenter)
+        self.logo.setStyleSheet(
+            "color: white; font-size: 20pt; font-weight: bold; "
+            "padding: 20px; background-color: #1a2327;"
         )
 
-        # Colonne sidebar (titre + liste)
-        colonne_sidebar = QVBoxLayout()
-        colonne_sidebar.setContentsMargins(0, 0, 0, 0)
-        colonne_sidebar.setSpacing(0)
-        colonne_sidebar.addWidget(titre_sidebar)
-        colonne_sidebar.addWidget(self.sidebar, stretch=1)
+        # Boutons de navigation
+        self.btn_dashboard = self._creer_bouton_sidebar("📊  Tableau de bord")
+        self.btn_eleves    = self._creer_bouton_sidebar("👥  Élèves")
 
-        conteneur_sidebar = QWidget()
-        conteneur_sidebar.setLayout(colonne_sidebar)
-        conteneur_sidebar.setFixedWidth(220)
+        # Groupe exclusif : un seul bouton coché à la fois
+        self.nav_group = QButtonGroup(self)
+        self.nav_group.setExclusive(True)
+        self.nav_group.addButton(self.btn_dashboard, 0)
+        self.nav_group.addButton(self.btn_eleves, 1)
+
+        # Layout de la sidebar
+        sidebar_layout = QVBoxLayout(self.sidebar)
+        sidebar_layout.setContentsMargins(0, 0, 0, 0)
+        sidebar_layout.setSpacing(0)
+        sidebar_layout.addWidget(self.logo)
+        sidebar_layout.addWidget(self.btn_dashboard)
+        sidebar_layout.addWidget(self.btn_eleves)
+        sidebar_layout.addStretch()
 
         # ============================
         # BARRE DE TITRE (en haut à droite)
@@ -96,9 +100,6 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.dashboard_view)
         self.stack.addWidget(self.eleves_view)
 
-        # ============================
-        # COLONNE DROITE (titre + contenu)
-        # ============================
         colonne_droite = QVBoxLayout()
         colonne_droite.setContentsMargins(0, 0, 0, 0)
         colonne_droite.setSpacing(0)
@@ -114,7 +115,7 @@ class MainWindow(QMainWindow):
         layout = QHBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
-        layout.addWidget(conteneur_sidebar)
+        layout.addWidget(self.sidebar)
         layout.addWidget(conteneur_droite, stretch=1)
 
         container = QWidget()
@@ -124,10 +125,18 @@ class MainWindow(QMainWindow):
         # ============================
         # SIGNAUX
         # ============================
-        self.sidebar.currentRowChanged.connect(self._on_sidebar_change)
-        self.sidebar.setCurrentRow(0)
+        self.nav_group.idClicked.connect(self._on_sidebar_change)
+        self.btn_dashboard.setChecked(True)   # page par défaut
 
         self.statusBar().showMessage("Prêt")
+
+    def _creer_bouton_sidebar(self, texte):
+        """Crée un bouton de sidebar coché/non coché."""
+        btn = QPushButton(texte)
+        btn.setObjectName("sidebarBtn")
+        btn.setCheckable(True)
+        btn.setCursor(Qt.PointingHandCursor)
+        return btn
 
     def _on_sidebar_change(self, row):
         """Change la page affichée et met à jour le titre."""
@@ -139,7 +148,6 @@ class MainWindow(QMainWindow):
         }
         self.titre_page.setText(titres.get(row, "EduPaie"))
 
-        # Rafraîchir la vue affichée
         if row == 0:
             self.dashboard_view.refresh()
         elif row == 1:
