@@ -124,7 +124,7 @@ def main():
     """)
 
     # 1. Base de données
-    db = Database("edupaie.db")
+    db = Database()
     try:
         db.init_schema("database/schema.sql")
     except Exception:

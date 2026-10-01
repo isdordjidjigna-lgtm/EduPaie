@@ -1,14 +1,6 @@
 # -*- mode: python ; coding: utf-8 -*-
 """Spec PyInstaller pour EduPaie."""
-import os
-import sys
-
-# Chemins absolus
-VENV_DIR = os.path.abspath(os.path.join(os.path.dirname(sys.executable), ".."))
-SITE_PACKAGES = os.path.join(VENV_DIR, "Lib", "site-packages")
-
-print(f"[SPEC] Python     : {sys.executable}")
-print(f"[SPEC] Site-pack  : {SITE_PACKAGES}")
+from PyInstaller.utils.hooks import collect_data_files
 
 # Imports obligatoires
 hiddenimports = [
@@ -20,26 +12,35 @@ hiddenimports = [
     'reportlab.lib.pagesizes', 'reportlab.lib.units',
 ]
 
-# Données
-datas = [('database/schema.sql', 'database')]
-try:
-    from PyInstaller.utils.hooks import collect_data_files
-    datas += collect_data_files('reportlab')
-    datas += collect_data_files('PySide6')
-    print(f"[SPEC] Datas collectées : {len(datas)}")
-except Exception as e:
-    print(f"[SPEC] Erreur collect_data_files : {e}")
+# Données à inclure dans le .exe
+datas = [
+    ('database/schema.sql', 'database'),
+    ('edupaie.db', '.'),
+]
+datas += collect_data_files('reportlab')
+datas += collect_data_files('PySide6')
+
+# Modules à exclure (réduit la taille du .exe)
+excludes = [
+    'matplotlib', 'scipy', 'pandas',
+    'PySide6.QtWebEngineCore', 'PySide6.QtWebEngineWidgets',
+    'PySide6.Qt3DCore', 'PySide6.Qt3DRender',
+    'PySide6.QtMultimedia', 'PySide6.QtMultimediaWidgets',
+    'PySide6.QtQuick', 'PySide6.QtQml',
+    'PySide6.QtCharts', 'PySide6.QtDataVisualization',
+    'tkinter', 'unittest', 'test', 'pydoc',
+]
 
 a = Analysis(
     ['main.py'],
-    pathex=[SITE_PACKAGES],
+    pathex=[],
     binaries=[],
     datas=datas,
     hiddenimports=hiddenimports,
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
-    excludes=[],
+    excludes=excludes,
     noarchive=False,
 )
 
