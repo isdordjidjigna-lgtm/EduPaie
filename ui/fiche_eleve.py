@@ -29,6 +29,7 @@ class FicheEleveDialog(QDialog):
         self._maj_infos()
 
         self.btn_payer = QPushButton("➕ Enregistrer un paiement")
+        self.btn_payer.setProperty("class", "payBtn")
         self.btn_payer.clicked.connect(self._on_payer)
 
         self.table = QTableWidget(0, 6)
@@ -39,6 +40,7 @@ class FicheEleveDialog(QDialog):
         self.table.setEditTriggers(QTableWidget.NoEditTriggers)
 
         self.btn_fermer = QPushButton("Fermer")
+        self.btn_fermer.setProperty("class", "secondaryBtn")
         self.btn_fermer.clicked.connect(self.accept)
 
         layout = QVBoxLayout(self)
@@ -99,7 +101,8 @@ class FicheEleveDialog(QDialog):
                 f"{recu.solde_apres:,.0f}".replace(",", " ")
             ))
 
-            btn = QPushButton("Revoir")
+            btn = QPushButton("🔍 Revoir")
+            btn.setProperty("class", "actionBtn")
             btn.clicked.connect(
                 lambda _, rid=recu.id: self._reimprimer(rid)
             )

@@ -38,10 +38,9 @@ def main():
 
     app = QApplication(sys.argv)
     app.setApplicationName("EduPaie")
+
+    # QSS global — styles des boutons et de la sidebar
     app.setStyleSheet("""
-        /* ============================================
-           SIDEBAR
-           ============================================ */
         QFrame#sidebar {
             background-color: #263238;
         }
@@ -62,10 +61,11 @@ def main():
             border-left: 4px solid #0D47A1;
             font-weight: bold;
         }
+        QPushButton#sidebarBtn:focus {
+            outline: none;
+            border: none;
+        }
 
-        /* ============================================
-           BOUTONS D'ACTION
-           ============================================ */
         QPushButton.actionBtn {
             background-color: #1976D2;
             color: white;
@@ -105,6 +105,21 @@ def main():
         }
         QPushButton.secondaryBtn:hover {
             background-color: #78909C;
+        }
+
+        QPushButton.payBtn {
+            background-color: #388E3C;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        QPushButton.payBtn:hover {
+            background-color: #43A047;
+        }
+        QPushButton.payBtn:pressed {
+            background-color: #2E7D32;
         }
     """)
 
