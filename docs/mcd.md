@@ -42,7 +42,7 @@ erDiagram
 
 ## 2. MCD — Version illustrée
 
-![MCD EduPaie](mcd.png)
+![MCD EduPaie](capture/mcd.png)
 
 ## 3. MLD (Modèle Logique de Données)
 
