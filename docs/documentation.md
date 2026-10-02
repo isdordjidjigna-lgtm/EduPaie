@@ -127,14 +127,47 @@ Le script SQL complet est dans `database/schema.sql`.
 
 ## 8. Captures d'écran
 
-*[Insérer les captures d'écran aux emplacements ci-dessous]*
+### Capture 1 — Tableau de bord
 
-- **Capture 1** — Tableau de bord
-- **Capture 2** — Liste et recherche des élèves
-- **Capture 3** — Formulaire d'ajout/modification d'un élève
-- **Capture 4** — Fiche élève avec solde et historique
-- **Capture 5** — Dialogue d'enregistrement d'un paiement
-- **Capture 6** — Exemple de reçu PDF
+![Tableau de bord](capture/t_bord.png)
+
+Le tableau de bord affiche les 4 indicateurs clés : nombre d'élèves, total encaissé, total restant dû et nombre d'élèves non soldés.
+
+### Capture 2 — Liste et recherche des élèves
+
+![Liste des élèves](capture/searche_eleve.png)
+
+La vue Élèves propose une recherche par nom/prénom, un filtre par classe, et un tableau à 8 colonnes (ID, Nom, Prénom, Classe, Frais dus, Payé, Solde, Statut).
+
+### Capture 3 — Formulaire d'ajout d'un élève
+
+![Ajouter un élève](capture/add_eleve.png)
+
+Le formulaire d'ajout permet de saisir les informations d'un nouvel élève : nom, prénom, classe, année scolaire et montant total dû.
+
+### Capture 4 — Formulaire de modification d'un élève
+
+![Modifier un élève](capture/mod_eleve.png)
+
+Le formulaire de modification permet d'éditer les informations d'un élève existant.
+
+### Capture 5 — Fiche élève avec solde et historique
+
+![Fiche élève](capture/f_s_h.png)
+
+La fiche élève affiche les informations personnelles, le solde restant, le statut et l'historique complet des paiements avec possibilité de revoir chaque reçu.
+
+### Capture 6 — Dialogue d'enregistrement d'un paiement
+
+![Dialogue paiement](capture/pd.png)
+
+Le dialogue permet de saisir le montant, la date et le mode de paiement (espèces, chèque, virement, mobile money).
+
+### Capture 7 — Exemple de reçu PDF
+
+![Reçu PDF](capture/recu.png)
+
+Chaque paiement génère un reçu PDF numéroté contenant les informations de l'élève, le montant payé, le mode, le solde restant, ainsi qu'un numéro unique de type `REC-AAAA-NNNNNN`.
 
 ---
 
