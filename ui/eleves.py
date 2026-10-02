@@ -47,15 +47,21 @@ class ElevesView(QWidget):
         self.model = EleveTableModel(self.eleve_service)
         self.proxy = QSortFilterProxyModel()
         self.proxy.setSourceModel(self.model)
+        self.proxy.setSortRole(Qt.UserRole)
         self.proxy.setFilterKeyColumn(-1)
         self.proxy.setFilterCaseSensitivity(Qt.CaseInsensitive)
 
         self.table = QTableView()
         self.table.setModel(self.proxy)
         self.table.setSortingEnabled(True)
+        self.table.sortByColumn(0, Qt.AscendingOrder)
         self.table.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        # Colonne ID : largeur fixe
+        self.table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        # Autres colonnes : stretch
+        for col in range(1, 8):
+            self.table.horizontalHeader().setSectionResizeMode(col, QHeaderView.Stretch)
         self.table.doubleClicked.connect(self._on_voir_fiche)
 
         # --- Boutons bas ---
@@ -110,7 +116,7 @@ class ElevesView(QWidget):
         self.proxy.setFilterFixedString(self.search_input.text().strip())
         classe = self.classe_combo.currentData()
         if classe:
-            self.proxy.setFilterKeyColumn(2)
+            self.proxy.setFilterKeyColumn(3)
             self.proxy.setFilterFixedString(classe)
         else:
             self.proxy.setFilterKeyColumn(-1)

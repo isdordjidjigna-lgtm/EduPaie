@@ -73,10 +73,13 @@ class DashboardView(QWidget):
         self.model = EleveTableModel(self.eleve_service)
         self.proxy = QSortFilterProxyModel()
         self.proxy.setSourceModel(self.model)
+        self.proxy.setSortRole(Qt.UserRole)
+        
 
         self.table = QTableView()
         self.table.setModel(self.proxy)
         self.table.setSortingEnabled(True)
+        self.table.sortByColumn(0, Qt.AscendingOrder)
         self.table.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
@@ -130,6 +133,6 @@ class DashboardView(QWidget):
             self.proxy.setFilterKeyColumn(-1)
             self.proxy.setFilterFixedString("")
         else:
-            # colonne 6 = Statut
-            self.proxy.setFilterKeyColumn(6)
+            # colonne 7 = Statut
+            self.proxy.setFilterKeyColumn(7)
             self.proxy.setFilterFixedString(statut)

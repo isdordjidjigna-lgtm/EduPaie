@@ -28,7 +28,7 @@ class EleveRepository:
 
     def lister_tous(self) -> list[Eleve]:
         rows = self.db.conn.execute(
-            "SELECT * FROM eleve ORDER BY classe, nom, prenom"
+            "SELECT * FROM eleve ORDER BY id ASC"
         ).fetchall()
         return [self._row_to_eleve(r) for r in rows]
 
